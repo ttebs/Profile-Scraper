@@ -1,0 +1,378 @@
+html {
+    width: 400px;
+    height: auto;
+}
+.input-group-text {
+    font-size: 12px !important;
+    width: 130px !important;
+}
+input.form-control,
+textarea.form-control {
+    font-size: 12px !important;
+}
+.custom-select {
+    font-size: 12px !important;
+}
+.input-group-text.input-group-text--login {
+    width: 80px !important;
+}
+button.btn-success {
+    float: right;
+}
+.form-data--user-profile .col-form-label{   
+    font-size: 12px !important;
+}
+.form-data--user-profile .form-group{
+    margin-bottom: 0
+}
+.note-card .card-body{
+    padding: 8px;
+}
+.note-card .card-title{
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+.note-card .card-text{
+    font-size: 12px;
+}
+.note-card .card-footer{
+    padding: 3px;
+    font-size: 12px;
+}
+.form-data--user-profile .input-group {
+    display: none;
+}
+.form-data--user-profile .col-8 .is-edit {
+    cursor: pointer;
+}
+.login-page,
+.new-user-page,
+.existing-user-page {
+    display: none;
+}
+.editable {
+    font-style: italic;
+    text-decoration: underline;
+    color: gray;
+}
+#searching h6 {
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.success-msg {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    top: auto;
+    margin: 0;
+    border-radius: 0;
+}
+.danger-msg {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    top: auto;
+    margin: 0;
+    border-radius: 0;
+    left: 0;
+}
+.nav-tabs .nav-link {
+    font-size: 14px !important;
+}
+#multiple-search-candidate .form-group label {
+    font-size: 12px;
+}
+#multiple-search-candidate h5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#multiple-search-candidate h5 i{
+    font-size: 13px;
+    color: #000;
+    margin-right: 5px;
+}
+#multiple-search-candidate h5 button {
+    font-size: 13px;
+    padding: 0;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+.body-content {
+    padding: 10px
+}
+.body-content--tab-header {
+    padding: 0 10px;
+    position: relative;
+}
+.body-content--tab-header > button {
+    font-size: 12px;
+}
+.body-content--tab-content {
+    padding: 10px 14px;
+}
+.navbar-brand {
+    color: #fff;
+}
+.found-records-msg {
+    padding: 10px 10px 0;
+    font-weight: normal;
+    font-size: 12px;
+}
+#accordion .card {
+    border-radius: 0;
+}
+.nav-tabs .nav-link {
+    color: #28a745!important;
+}
+.with-back-btn .nav-tabs {
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+.nav-tabs {
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+/* .with-back-btn .body-content--tab-header button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+}
+.with-back-btn .body-content--tab-header button i {
+    margin-right: 7px;
+} */
+.candidate-span {
+    font-size: 12px;
+    color: #28a745;
+    font-weight: normal;
+}
+.contact-span {
+    font-size: 12px;
+    color: #dc3545;
+    font-weight: normal;
+}
+.multiple-search-candidate__btn {
+    margin: 0 10px;
+}
+#login-error-msg {
+    font-size: 12px;
+    padding: 6px;
+}
+#contact-create-company {
+    font-size: 12px;
+    float: right;
+    position: relative;
+    top: -10px;
+}
+.navbar.bg-success {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    align-items: flex-end;
+}
+.navbar.bg-success > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.navbar.bg-success > div:first-child span {
+    font-size: 9px;
+    color: #fff;
+}
+.navbar.bg-success > div:first-child i {
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+}
+.navbar.bg-success > div:first-child i:first-child {
+    margin: 0 3px;
+}
+.navbar.bg-success .logo_name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.select-record__spinnner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+header {
+    margin-bottom: 5px;
+}
+#create-new-record-candidate {
+    font-size: 12px;
+}
+.login-page__btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.login-page__btns div:first-child {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.login-page__btns div:first-child a {
+    font-size: 12px;
+}
+.custom-file label {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.custom-file-label::after {
+    font-size: 12px !important;
+    padding: 10px !important;
+}
+.form-data--add-candidate .alert-danger {
+    font-size: 12px;
+}
+#added-record-success i {
+    cursor: pointer;
+}
+.alert-danger i {
+    cursor: pointer;
+}
+.validation-err {
+    font-size: 12px;
+    color: red;
+    position: relative;
+    top: -11px;
+}
+.validation-error-field {
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+.trial-period {
+    font-size: 11px;
+    color: #fff;
+}
+
+#candidate-resume-field .custom-file {
+    height: 80px;
+    border: 1px dashed #28a745;
+    position: relative;
+    cursor: pointer;
+}
+
+#candidate-resume-field .custom-file > span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+#candidate-resume-field .custom-file > span i {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+#candidate-resume-field .custom-file > label {
+    height: 100%;
+    opacity: 0;
+}
+
+.header-buttons {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-buttons > button {
+    font-size: 12px;
+    margin-right: 10px;
+    border-right: 1px solid green;
+    padding-right: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+}
+.header-buttons > button > i {
+    margin-right: 3px;
+}
+.header-buttons > div > a {
+    font-size: 12px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 2px;
+    padding: 2px 25px;
+}
+.header-buttons > div > a:hover {
+    text-decoration: none;
+}
+#create-new-record-contact {
+    font-size: 12px !important;
+}
+.editable-icon {
+    margin-left: 6px;
+    font-size: 10px;
+    cursor: pointer;
+}
+.contact-company-search-container {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    max-width: 243px;
+    list-style-type: none;
+    top: 27px;
+    z-index: 99;
+    background: #fff;
+    border: 1px solid #ced4da;
+    cursor: pointer;
+    padding: 0;
+    max-height: 170px;
+    overflow: auto;
+}
+.contact-company-search-container > li {
+    border-bottom: 1px solid #ced4da;
+    font-size: 12px;
+    padding: 5px 5px 5px 8px;
+    color: #495057;
+}
+.contact-company-search-container > li:hover {
+    background: #e9ecef;
+}
+.contact-company-search-container > li:last-child {
+    border-bottom: none;
+}
+#searching-company {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#searching-company-empty {
+    color: #007bff;
+}

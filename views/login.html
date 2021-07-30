@@ -1,0 +1,726 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Parsley</title>
+  <meta name="description" content="Parsley saves staffing recruiters time by expediting the collection of profile data from social media site profiles.">
+  <meta name="author" content="Parsley">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/popup.css">
+</head>
+
+<body>
+    <div id="searching" class="body-content">
+        <h6>Searching for <i class="fas fa-spinner fa-spin"></i></h6>
+    </div>
+    <header style="display: none;">
+        <nav class="navbar bg-success">
+            <div>
+                <span>Version 1.0.9</span>
+                <div>
+                    <i class="fas fa-sign-out-alt signout"></i>
+                    <i class="fas fa-times-circle close-popup"></i>
+                </div>
+            </div>
+            <div class="logo_name">
+                <img src="../images/banner-logo.png" alt="logo" style="width: 40px;">
+                <span class="navbar-brand" style="margin-right: 0;">Parsley</span>
+            </div>
+            <span class="trial-period badge badge-danger" style="display: none;"></span>
+        </nav>
+    </header>
+    <div id="added-record-success" class="alert alert-success success-msg" style="display: none;" role="alert"></div>
+
+    <div id="login-page" class="tab-content"  style="display: none;">
+        <div class="tab-pane fade show active body-content" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <form class="form-data form-data--login" autocomplete="on">
+                <input type="hidden" class="form-control" id="loginLinkedinName" aria-label="loginLinkedinName" aria-describedby="basic-addon1">
+                <input type="hidden" class="form-control" id="loginLinkedinEmail" aria-label="loginLinkedinEmail" aria-describedby="basic-addon1">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text input-group-text--login" id="basic-addon1">Email</span>
+                    </div>
+                    <input type="text" class="form-control" id="loginEmail" aria-label="loginEmail" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text input-group-text--login" id="basic-addon1">Password</span>
+                    </div>
+                    <input type="password" class="form-control" id="loginPassword" aria-label="loginPassword" aria-describedby="basic-addon1">
+                </div>
+                <div class="alert alert-danger" role="alert" style="display: none;" id="login-error-msg"></div>
+                <div class="login-page__btns">
+                    <div>
+                        <a href="https://parsley-admin-prod.herokuapp.com/#/sign-up" target="_blank">Register Here</a>
+                        <a href="https://parsley-admin-prod.herokuapp.com/#/password-reset" target="_blank">Forgot Password</a>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Log In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id='multiple-search-candidate' style="display: none;">
+        <div class="select-record__spinnner" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <h6 id="found-records-msg" class="found-records-msg" style="display: none;"></h6>
+        <div id="accordion" class="body-content" style="display: none;"></div>
+        <button class="btn btn-success btn-sm mb-3 multiple-search-candidate__btn" style="display: none;">Create new record</button>
+    </div>
+    
+    <div id="new-user-page" style="display: none;">
+        <div class="select-record__spinnner" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <nav class="body-content--tab-header">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab-2" data-toggle="tab" href="#nav-home-2" role="tab" aria-controls="nav-home" aria-selected="true">Candidate</a>
+                <a class="nav-item nav-link" id="nav-profile-tab-2" data-toggle="tab" href="#nav-profile-2" role="tab" aria-controls="nav-profile" aria-selected="false">Contact</a>
+            </div>
+        </nav>
+      <div class="tab-content pt-2 body-content--tab-content">
+        <div class="tab-pane fade show active" id="nav-home-2" role="tabpanel" aria-labelledby="nav-home-tab-2">
+            <form class="form-data form-data--add-candidate" autocomplete="on" enctype="multipart/form-data">
+                <button type="submit" class="btn btn-success btn-sm mb-3">Create Candidate</button>
+                <input type="hidden" class="form-control" id="candidateSource" aria-label="candidateSource" aria-describedby="basic-addon1" value="Parsley">
+                <input type="hidden" class="form-control" id="linkedInUrl" aria-label="linkedInUrl" aria-describedby="basic-addon1" value="">
+                <input type="hidden" class="form-control" id="twitterUrl" aria-label="twitterUrl" aria-describedby="basic-addon1" value="">
+                <input type="hidden" class="form-control" id="facebookUrl" aria-label="facebookUrl" aria-describedby="basic-addon1" value="">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="owner">Recruiter</label>
+                    </div>
+                    <select class="custom-select form-control" id="recruiter">
+                    </select>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="salutation">Salutation</label>
+                    </div>
+                    <select class="custom-select form-control" id="salutation">
+                      <!-- <option value="default" selected>Choose...</option>
+                      <option value="Mr">Mr.</option>
+                      <option value="Mrs">Mrs.</option> -->
+                    </select>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">First Name</span>
+                    </div>
+                    <input type="text" class="form-control" id="firstName" aria-label="firstName" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" id="lastName" aria-label="lastName" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Current Employer</span>
+                    </div>
+                    <input type="text" class="form-control" id="currentEmployer" aria-label="currentEmployer" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Current Position</span>
+                    </div>
+                    <input type="text" class="form-control" id="currentPosition" aria-label="currentPosition" aria-describedby="basic-addon1" maxlength="90">
+                </div>
+
+                <div id="candidate-email-field" class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Email</span>
+                    </div>
+                    <input type="text" class="form-control" id="email" aria-label="email" aria-describedby="basic-addon1">
+                </div>
+                <span id="email-validation-err" class="validation-err" style="display: none;">* Email address is not valid</span>
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Phone</span>
+                    </div>
+                    <input type="text" class="form-control" id="phone" aria-label="phone" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Mobile</span>
+                    </div>
+                    <input type="text" class="form-control" id="mobile" aria-label="mobile" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">City</span>
+                    </div>
+                    <input type="text" class="form-control" id="city" aria-label="city" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">State</span>
+                    </div>
+                    <input type="text" class="form-control" id="state" aria-label="state" aria-describedby="basic-addon1">
+                </div>
+
+                <div id="candidate-country-field" class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Country</span>
+                    </div>
+                    <input type="text" class="form-control" id="country" aria-label="country" aria-describedby="basic-addon1">
+                </div>
+                <span id="country-validation-err" class="validation-err" style="display: none;">* Country is not valid</span>
+
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="candidateStatus">Status</label>
+                    </div>
+                    <select class="custom-select form-control" id="candidateStatus"></select>
+                </div>
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="addToJob">Add to Job</label>
+                    </div>
+                    <select class="custom-select form-control" id="addToJob"></select>
+                </div>
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="status">Job Status</label>
+                    </div>
+                    <select class="custom-select form-control" id="status" disabled></select>
+                </div>
+
+                <div id="candidate-resume-field" class="input-group mb-3">
+                    <div class="custom-file">
+                        <span><i class="fas fa-upload"></i> Choose a PDF or MS Word file and drag it here</span>
+                        <input type="file" class="custom-file-input" id="uploadResume">
+                        <label class="custom-file-label" for="uploadResume">Choose file</label>
+                    </div>
+                </div>
+                <span id="resume-validation-err" class="validation-err" style="display: none;">* File type is not valid</span>
+
+                <div id="added-record-danger" class="alert alert-danger danger-msg" style="display: none;" role="alert"></div>
+                <button type="submit" class="btn btn-success btn-sm mb-3">Create Candidate</button>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="nav-profile-2" role="tabpanel" aria-labelledby="nav-profile-tab-2">
+            <form class="form-data form-data--add-contact" autocomplete="on">
+                <button type="submit" class="btn btn-success btn-sm mb-3">Create Contact</button>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="owner">Owner</label>
+                    </div>
+                    <select class="custom-select form-control" id="owner">
+                    </select>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="contactSalutation">Salutation</label>
+                    </div>
+                    <select class="custom-select form-control" id="contactSalutation">
+                      <!-- <option value="default" selected>Choose...</option>
+                      <option value="Mr">Mr.</option>
+                      <option value="Mrs">Mrs.</option> -->
+                    </select>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">First Name</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactFirstName" aria-label="contactFirstName" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactLastName" aria-label="contactLastName" aria-describedby="basic-addon1">
+                </div>
+                
+                <input type="hidden" class="form-control" id="contactCompanyID" aria-label="contactCompanyID" aria-describedby="basic-addon1">
+                <div class="input-group input-group-sm mb-3" style="position: relative;" id="contactCompanyContainer">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Company</span>
+                      </div>
+                    <input type="text" class="form-control" id="contactCompany" aria-label="contactCompany" aria-describedby="basic-addon1">
+                    <ul id="contact-company-search" class="contact-company-search-container" style="display: none">
+                        
+                    </ul>
+                    <!-- <div class="input-group-append" style="display: none;">
+                        <button class="btn btn-outline-secondary btn-sm create-company" type="button"><i class="far fa-copy"></i></button>
+                    </div> -->
+                </div>
+                <!-- <a href="https://us1.jobadder.com/companies/new" style="display: none;" id="contact-create-company" class="mb-2" target="_blank">Create new company</a> -->
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Position</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactPosition" aria-label="contactPosition" aria-describedby="basic-addon1" maxlength="90">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Email</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactEmail" aria-label="contactEmail" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Phone</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactPhone" aria-label="contactPhone" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Mobile</span>
+                    </div>
+                    <input type="text" class="form-control" id="contactMobile" aria-label="contactMobile" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="contactStatus">Status</label>
+                    </div>
+                    <select class="custom-select form-control" id="contactStatus"></select>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-sm mb-3">Create Contact</button>
+                <div class="alert alert-success success-msg" style="display: none;" role="alert"></div>
+                <div class="alert alert-danger danger-msg" style="display: none;" role="alert"></div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="existing-user-page" class="with-back-btn" style="display: none;">
+        <nav class="body-content--tab-header">
+            <div class="nav nav-tabs" id="nav-tab-3" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab-3" data-toggle="tab" href="#nav-home-3" role="tab" aria-controls="nav-home-3" aria-selected="true">Candidate</a>
+                <a class="nav-item nav-link" id="nav-profile-tab-3" data-toggle="tab" href="#nav-profile-3" role="tab" aria-controls="nav-profile-3" aria-selected="false">Notes</a>
+                <div class="header-buttons">
+                    <button id="candidate-back-btn" style="display: none;"><i class="fas fa-angle-left"></i>Back</button>
+                    <div id="userProfileText">
+                        <!-- <a  href="#" style=>View Profile</a> -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="select-record__spinnner" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <div class="tab-content pt-2 body-content--tab-content" style="display: none;">
+            <div class="tab-pane fade show active" id="nav-home-3" role="tabpanel" aria-labelledby="nav-home-tab-3">
+                <form class="form-data form-data--user-profile" autocomplete="on">
+                    <input type="hidden" class="form-control" id="candidateId" aria-label="candidateId" aria-describedby="basic-addon1">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Name:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userNameText"></label>
+                            <div class="input-group user-first-name">
+                                <input type="text" class="form-control form-control-sm" id="userFirstName">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="input-group user-last-name">
+                                <input type="text" class="form-control form-control-sm" id="userLastName">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Recruiter:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userRecruiterText"></label>
+                            <div class="input-group">
+                                <select class="custom-select form-control form-control-sm" id="userRecruiter">
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Salutation:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userSalutationText"></label>
+                            <div class="input-group">
+                                <select class="custom-select form-control form-control-sm" id="userSalutation">
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Current Employer:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userEmployerText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userEmployer">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Current Position:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userPositionText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userPosition">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Email Address:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userEmailText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userEmail">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Phone:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userPhoneText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userPhone">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Mobile:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userMobileText"></label>
+                            <div class="input-group" id="user-mobile-group">
+                                <input type="text" class="form-control form-control-sm" id="userMobile">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" id="user-mobile-close" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">City:</label>
+                        <div class="col-8 user-city">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userCityText"></label>
+                            <div class="input-group" id="user-city-group">
+                                <input type="text" class="form-control form-control-sm" id="userCity">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field"  id="user-city-close" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">State:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="userStateText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userState">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Country:</label>
+                        <div class="col-8">
+                            <label class="col-form-label is-edit" id="userCountryText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="userCountry">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Resume:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="userResumeText"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Status:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="userStatusText"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Date Created:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="userCreatedAtText"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Date Updated:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="userUpdatedAtText"></label>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Profile:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="userProfileText"></label>
+                        </div>
+                    </div> -->
+                    <div class="alert alert-danger danger-msg" style="display: none;" role="alert"></div>
+                </form>
+                <button id="create-new-record-candidate" class="btn btn-success btn-sm mb-2 mt-1 float-left">Create new record</button>
+            </div>
+            <div class="tab-pane fade" id="nav-profile-3" role="tabpanel" aria-labelledby="nav-profile-tab-3">
+                <form class="form-data form-data--notes clearfix" autocomplete="on">
+                    <input type="hidden" class="form-control form-control-sm" id="placementID">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="noteType">Note Type</label>
+                        </div>
+                        <select class="custom-select" id="noteType">
+                        </select>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Note</span>
+                        </div>
+                        <textarea class="form-control" id="note" aria-label="With textarea"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-sm">Add Note</button>
+                </form>
+        
+                <h5 class="text-left">Latest Notes</h5>
+                <div id="candidate-notes">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="existing-contact-page" class="with-back-btn" style="display: none;">
+        <nav class="body-content--tab-header">
+            <div class="nav nav-tabs" id="nav-tab-3" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab-4" data-toggle="tab" href="#nav-home-4" role="tab" aria-controls="nav-home-4" aria-selected="true">Contact</a>
+              <a class="nav-item nav-link" id="nav-home-tab-4" data-toggle="tab" href="#nav-profile-4" role="tab" aria-controls="nav-profile-4" aria-selected="false">Notes</a>
+              <!-- <button id="contact-back-btn" class="btn btn-success btn-sm" style="display: none;"><i class="fas fa-angle-left"></i>Back</button> -->
+              <div class="header-buttons">
+                <button id="contact-back-btn" style="display: none;"><i class="fas fa-angle-left"></i>Back</button>
+                <div id="contactProfileText">
+                    <!-- <a  href="#" style=>View Profile</a> -->
+                </div>
+            </div>
+            </div>
+        </nav>
+        <div class="select-record__spinnner" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <div class="tab-content pt-2 body-content--tab-content" style="display: none;">
+            <div class="tab-pane fade show active" id="nav-home-4" role="tabpanel" aria-labelledby="nav-home-tab-4">
+                <form class="form-data form-data--user-profile" autocomplete="on">
+                    <input type="hidden" class="form-control" id="contactId" aria-label="contactId" aria-describedby="basic-addon1">
+
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Name:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactNameText"></label>
+                            <div class="input-group user-first-name">
+                                <input type="text" class="form-control form-control-sm" id="contactFirstName">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="input-group user-last-name">
+                                <input type="text" class="form-control form-control-sm" id="contactLastName">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Owner:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactRecruiterText">
+                            </label>
+                            <div class="input-group">
+                                <select class="custom-select form-control form-control-sm" id="contactRecruiter">
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Salutation:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactSalutationText">
+                            </label>
+                            <div class="input-group">
+                                <select class="custom-select form-control form-control-sm" id="editContactSalutation">
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="editContactCompanyID" aria-label="editContactCompanyID" aria-describedby="basic-addon1">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Company:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactCompanyText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="contactCompany">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Position:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactPositionText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="contactPosition">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Email Address:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactEmailText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="contactEmail">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Phone:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactPhoneText"></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="contactPhone">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Mobile:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label is-edit" id="contactMobileText"></label>
+                            <div class="input-group" id="user-mobile-group">
+                                <input type="text" class="form-control form-control-sm" id="contactMobile">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm check" type="button"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-outline-secondary btn-sm exit-field" id="user-mobile-close" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Status:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="contactStatusText"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Date Created:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="contactCreatedAtText"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Date Updated:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="contactUpdatedAtText"></label>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label for="inputEmail3" class="col-4 col-form-label">Profile:</label>
+                        <div class="col-8">
+                            <label for="inputEmail3" class="col-form-label" id="contactProfileText"></label>
+                        </div>
+                    </div> -->
+                </form>
+                <button id="create-new-record-contact" class="btn btn-success btn-sm mb-3 mt-2 float-left">Create new record</button>
+            </div>
+            <div class="tab-pane fade" id="nav-profile-4" role="tabpanel" aria-labelledby="nav-home-tab-4">
+                <form class="form-data form-data--notes-contact clearfix" autocomplete="on">
+                    <input type="hidden" class="form-control form-control-sm" id="placementID">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="noteType">Note Type</label>
+                        </div>
+                        <select class="custom-select" id="contactNoteTypes"></select>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Note</span>
+                        </div>
+                        <textarea class="form-control" id="contactNote" aria-label="With textarea"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-sm">Add Note</button>
+                </form>
+        
+                <h5 class="text-left">Latest Notes</h5>
+                <div id="contact-notes"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
+    <script src="../js/app/main.js"></script>
+</body>
+</html>

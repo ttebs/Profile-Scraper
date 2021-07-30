@@ -1,0 +1,45 @@
+{
+    "manifest_version": 2,
+    "name": "Parsley",
+    "description": "Parsley saves staffing recruiters time by expediting the collection of profile data from social media site profiles.",
+    "version": "1.0.9",
+    "content_scripts": [
+        {
+            "matches": ["https://www.linkedin.com/in/*", "https://stackoverflow.com/users/*", "https://github.com/*", "https://angel.co/*", "https://resumes.indeed.com/resume/*"],
+            "run_at": "document_start",
+            "js": ["js/lib/jquery-3.6.0.min.js", "js/app/content.js"]
+        }
+    ],
+    "background": {
+        "scripts": ["js/lib/jquery-3.6.0.min.js", "js/app/background.js"], 
+        "persistent": false
+    },
+    "permissions": [
+        "https://www.linkedin.com/in/*",
+        "https://stackoverflow.com/users/*",
+        "https://github.com/*",
+        "https://angel.co/*",
+        "https://resumes.indeed.com/resume/*",
+        "webNavigation",
+        "https://sandboxapi.jobadder.com/*",
+        "https://parsley-api-dev.herokuapp.com/api/v1/*",
+        "https://us1.jobadder.com/companies/new",
+        "https://api.jobadder.com/v2/*",
+        "https://parsley-api-prod.herokuapp.com/api/*"
+    ],
+    "icons": {
+        "16": "images/16x16.png",
+        "32": "images/32x32.png",
+        "48": "images/48x48.png",
+        "128": "images/128x128.png"
+    },
+    "page_action": {
+        "default_icon": {
+            "16": "images/16x16.png",
+            "32": "images/32x32.png",
+            "48": "images/48x48.png",
+            "128": "images/128x128.png"
+        },
+        "default_popup": "views/login.html"
+    }
+}
